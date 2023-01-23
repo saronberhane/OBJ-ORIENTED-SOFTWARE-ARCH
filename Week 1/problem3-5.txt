@@ -1,0 +1,11 @@
+3)  The class classmates implements the '__len__' method.
+
+4) An interface does not offer an implementation for the methods it describes, which a class must implement. For the methods specified in an interface, an implementation offers a practical implementation. Although the implementation specifies how a class should behave, the interface specifies what it should do.
+
+5) To properly store data on a range of storage media, including local storage, the cloud, or future mediums, a large scale storage system would need a flexible interface-implementation structure.
+
+I would create a Storage Interface that outlines the techniques that every storage system implementation must offer. These procedures would perform operations including storing, retrieving, and deleting data. Data would be provided as a parameter for the store method, which would then return a special key that could be used to later retrieve or delete the data. The unique key would be passed to the get method, which would then return the associated data, and the unique key would be passed to the delete method, which would then remove the corresponding data.
+
+A set of Storage Implementations that would be actual implementations of the Storage Interface would also be made by me. These implementations would make use of many storage options, including local storage, the cloud, or upcoming mediums. One approach would store data on a local hard disk, while another might use a cloud-based storage service. 
+
+Finally, based on configuration or the runtime environment, I would design a Factory or Service class that would instantiate the appropriate storage implementation. Based on the setup or runtime environment, this class would use the suitable implementation of the Storage Interface.
