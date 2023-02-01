@@ -1,0 +1,16 @@
+
+Week 3 - Inheritance 2 
+
+1. The parent class in this code is the Spell class, and the Child classes are the Accio and Confundo classes. 
+
+2. Base class in this code is the Spell class, and the Sub-classes are the Accio and Confundo classes. 
+
+3. The output of this code would be a syntax error because of the use of this (’) quotation instead of (') or ("). 
+
+4. The get_description method from the Confundo class is called when study_spell(Confundo()) is executed because study_spell takes in an instance of a Spell class as an argument, and Confundo is a subclass of Spell, so an instance of the Confundo class is a valid argument for the study_spell function. In this particular case, the get_description method from the Confundo class is called because it is specified in the Confundo class and overrides the implementation in the Spell class.
+
+5. We would need to add this code into the Accio class if we want to print the description of "This charm summons an object to the caster, potentially over a significant distance"
+
+	def get_description(self):
+     	   return ‘This charm summons an object to the caster, potentially over a significant distance.’
+
