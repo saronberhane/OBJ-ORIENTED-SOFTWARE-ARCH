@@ -5,11 +5,16 @@ from datetime import datetime
 
 # create engine and session
 engine = create_engine('sqlite:///blog.db')
+connection = engine.connect()
 Session = sessionmaker(bind=engine)
 session = Session()
 
 # base class for declarative models
 Base = declarative_base()
+
+
+# creating all tables 
+Base.metadata.create_all(engine)
 
 # create many-to-many relationship between posts and tags
 post_tag_association_table = Table('post_tag_association', Base.metadata,
@@ -26,6 +31,14 @@ class User(Base):
     password = Column(String(100), nullable=False)
     role = Column(String(50), nullable=False, default='reader')
 
+
+# adding user to database
+def add_user(name, email, password, role='reader'):
+    user = User(name=name, email=email, password=password, role=role)
+    session.add(user)
+    session.commit()
+    return user
+
 # post 
 class Post(Base):
     __tablename__ = 'post'
@@ -39,6 +52,13 @@ class Post(Base):
     tags = relationship('Tag', secondary=post_tag_association_table, backref='posts')
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+# adding post to database
+def add_post(title, content, author_id, category_id=None, tag_ids=None):
+    post = Post(title=title, content=content, author_id=author_id, category_id=category_id)
+    if tag_ids:
+        post.tags = [session.query(Tag).get(tag_id) for tag_id in tag_ids]
+
 
 # comment
 class Comment(Base):
@@ -65,19 +85,3 @@ class Tag(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
     description = Column(Text)
-
-# creating all tables 
-Base.metadata.create_all(engine)
-
-# adding user to database
-def add_user(name, email, password, role='reader'):
-    user = User(name=name, email=email, password=password, role=role)
-    session.add(user)
-    session.commit()
-    return user
-
-# adding post to database
-def add_post(title, content, author_id, category_id=None, tag_ids=None):
-    post = Post(title=title, content=content, author_id=author_id, category_id=category_id)
-    if tag_ids:
-        post.tags = [session.query(Tag).get(tag_id) for tag_id in tag_ids]

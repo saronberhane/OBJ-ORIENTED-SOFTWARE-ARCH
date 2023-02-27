@@ -1,6 +1,7 @@
 from StoringObjectsDatabase import Base, User, Post, Tag
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import MetaData, Table
 
 
 #  database engine
@@ -16,9 +17,9 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 #  users
-saron = User(name='Saron', email='saron@gmail.com')
-berhane = User(name='Berhane', email='berhane@gmail.com')
-zebiba = User(name='Zebiba', email='zebiba@gmail.com')
+saron = User(name='Saron', email='saron@gmail.com', password='password', role ='developer')
+berhane = User(name='Berhane', email='berhane@gmail.com', password='password', role ='developer')
+zebiba = User(name='Zebiba', email='zebiba@gmail.com', password='password', role ='developer')
 
 # add the users to the session
 session.add_all([saron, berhane, zebiba])
